@@ -616,59 +616,48 @@
     }
   }
 
-  // Romantic Happy Birthday melody in Music Box style
+  // Romantic Polyphonic Acoustic Chords (Canon in D / Love Progression)
+  const CHORDS_PROGRESSION = [
+    // [Bass, Chord Arpeggio notes...]
+    { bass: 130.81, notes: [261.63, 329.63, 392.00, 523.25, 392.00, 329.63] }, // C major
+    { bass: 123.47, notes: [246.94, 293.66, 392.00, 493.88, 392.00, 293.66] }, // G/B
+    { bass: 110.00, notes: [220.00, 261.63, 329.63, 440.00, 329.63, 261.63] }, // Am
+    { bass: 87.31,  notes: [174.61, 261.63, 349.23, 440.00, 349.23, 261.63] }, // F
+    { bass: 130.81, notes: [261.63, 329.63, 392.00, 523.25, 392.00, 329.63] }, // C
+    { bass: 98.00,  notes: [196.00, 246.94, 293.66, 392.00, 293.66, 246.94] }, // G
+    { bass: 87.31,  notes: [174.61, 261.63, 349.23, 523.25, 440.00, 349.23] }, // F major 7
+    { bass: 98.00,  notes: [196.00, 293.66, 392.00, 493.88, 392.00, 293.66] }  // G
+  ];
+
   function startMusicBoxMelody() {
     initAudioContext();
     if (!audioCtx) return;
 
-    // Melody notes (Happy Birthday + Romantic extension)
-    const notes = [
-      { f: 261.63, d: 0.35, pause: 0.4 },
-      { f: 261.63, d: 0.35, pause: 0.4 },
-      { f: 293.66, d: 0.7, pause: 0.8 },
-      { f: 261.63, d: 0.7, pause: 0.8 },
-      { f: 349.23, d: 0.7, pause: 0.8 },
-      { f: 329.63, d: 1.2, pause: 1.4 },
+    let chordIdx = 0;
+    let arpeggioIdx = 0;
 
-      { f: 261.63, d: 0.35, pause: 0.4 },
-      { f: 261.63, d: 0.35, pause: 0.4 },
-      { f: 293.66, d: 0.7, pause: 0.8 },
-      { f: 261.63, d: 0.7, pause: 0.8 },
-      { f: 392.00, d: 0.7, pause: 0.8 },
-      { f: 349.23, d: 1.2, pause: 1.4 },
-
-      { f: 261.63, d: 0.35, pause: 0.4 },
-      { f: 261.63, d: 0.35, pause: 0.4 },
-      { f: 523.25, d: 0.7, pause: 0.8 },
-      { f: 440.00, d: 0.7, pause: 0.8 },
-      { f: 349.23, d: 0.7, pause: 0.8 },
-      { f: 329.63, d: 0.7, pause: 0.8 },
-      { f: 293.66, d: 1.2, pause: 1.4 },
-
-      { f: 466.16, d: 0.35, pause: 0.4 },
-      { f: 466.16, d: 0.35, pause: 0.4 },
-      { f: 440.00, d: 0.7, pause: 0.8 },
-      { f: 349.23, d: 0.7, pause: 0.8 },
-      { f: 392.00, d: 0.7, pause: 0.8 },
-      { f: 349.23, d: 1.6, pause: 2.2 },
-
-      // Gentle romantic arpeggios
-      { f: 523.25, d: 0.8, pause: 0.5 },
-      { f: 659.25, d: 0.8, pause: 0.5 },
-      { f: 783.99, d: 1.2, pause: 0.8 },
-      { f: 659.25, d: 0.8, pause: 0.5 },
-      { f: 523.25, d: 1.4, pause: 1.2 }
-    ];
-
-    let noteIdx = 0;
     function scheduleNext() {
       if (!isMusicPlaying || activeAudioTrack !== 'musicbox') return;
-      const n = notes[noteIdx];
+      const currentChord = CHORDS_PROGRESSION[chordIdx];
       const now = audioCtx.currentTime;
-      playMusicBoxNote(n.f, now, n.d);
 
-      noteIdx = (noteIdx + 1) % notes.length;
-      synthInterval = setTimeout(scheduleNext, n.pause * 1000);
+      // If at start of chord, play soft warm bass
+      if (arpeggioIdx === 0) {
+        playMusicBoxNote(currentChord.bass, now, 2.2);
+      }
+
+      // Play chime arpeggio note
+      const noteFreq = currentChord.notes[arpeggioIdx];
+      playMusicBoxNote(noteFreq, now, 1.4);
+
+      arpeggioIdx++;
+      if (arpeggioIdx >= currentChord.notes.length) {
+        arpeggioIdx = 0;
+        chordIdx = (chordIdx + 1) % CHORDS_PROGRESSION.length;
+      }
+
+      // Smooth romantic tempo (360ms per note)
+      synthInterval = setTimeout(scheduleNext, 360);
     }
 
     scheduleNext();
@@ -1382,7 +1371,12 @@
 
     const musicToggle = document.getElementById('music-toggle');
     const switchTrackBtn = document.getElementById('switch-track-btn');
+    const pickAudioBtn = document.getElementById('pick-audio-btn');
+    const localAudioInput = document.getElementById('local-audio-input');
     const muteBtn = document.getElementById('mute-btn');
+    const trackName = document.getElementById('track-name');
+    const audioEl = document.getElementById('audio-player');
+    const widget = document.getElementById('music-widget');
 
     if (musicToggle) musicToggle.addEventListener('click', toggleMusic);
     if (switchTrackBtn) switchTrackBtn.addEventListener('click', switchMusicTrack);
@@ -1390,6 +1384,38 @@
       muteBtn.addEventListener('click', () => {
         toggleMusic();
         muteBtn.textContent = isMusicPlaying ? '🔊' : '🔇';
+      });
+    }
+
+    // Auto-detect bg_music.mp3 if user provided it
+    fetch('assets/audio/bg_music.mp3', { method: 'HEAD' })
+      .then(res => {
+        if (res.ok) {
+          activeAudioTrack = 'custom';
+          if (trackName) trackName.textContent = 'Special Birthday Song 🎵';
+          if (audioEl) audioEl.src = 'assets/audio/bg_music.mp3';
+        }
+      })
+      .catch(() => {});
+
+    // Allow user to pick any custom audio file from device
+    if (pickAudioBtn && localAudioInput) {
+      pickAudioBtn.addEventListener('click', () => localAudioInput.click());
+      localAudioInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) {
+          const url = URL.createObjectURL(file);
+          activeAudioTrack = 'custom';
+          stopMusicBoxMelody();
+          const cleanName = file.name.replace(/\.[^/.]+$/, '').slice(0, 22);
+          if (trackName) trackName.textContent = `🎵 ${cleanName}`;
+          if (audioEl) {
+            audioEl.src = url;
+            audioEl.play().catch(err => console.warn('Play error:', err));
+          }
+          isMusicPlaying = true;
+          if (widget) widget.classList.add('playing');
+        }
       });
     }
   }

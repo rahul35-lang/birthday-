@@ -670,10 +670,91 @@
     }
   }
 
+  // --- PLAYLIST SYSTEM ---
+  const PLAYLIST = [
+    {
+      title: "💖 Meri Aankhon Mein (Shukran Allah)",
+      type: "audio",
+      src: "assets/audio/shukran_allah.mp3"
+    },
+    {
+      title: "✨ Tu Chahiye (Atif Aslam)",
+      type: "audio",
+      src: "assets/audio/tu_chahiye.mp3"
+    },
+    {
+      title: "🎂 Birthday Acoustic Melody",
+      type: "audio",
+      src: "assets/audio/birthday_melody.mp3"
+    },
+    {
+      title: "🎬 Our Memory Audio",
+      type: "audio",
+      src: "assets/audio/our_memory.mp3"
+    },
+    {
+      title: "🎶 Romantic Music Box Chime",
+      type: "synth"
+    }
+  ];
+
+  let currentTrackIndex = 0;
+
+  function updatePlaylistUI() {
+    const trackName = document.getElementById('track-name');
+    const pauseBtn = document.getElementById('pause-resume-btn');
+    const playlistBtns = document.querySelectorAll('.playlist-item-btn');
+    const current = PLAYLIST[currentTrackIndex];
+
+    if (trackName) trackName.textContent = current.title;
+    if (pauseBtn) pauseBtn.textContent = isMusicPlaying ? '⏸️ Pause' : '▶️ Play';
+
+    playlistBtns.forEach((btn, idx) => {
+      if (idx === currentTrackIndex) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function playTrack(index) {
+    initAudioContext();
+    currentTrackIndex = (index + PLAYLIST.length) % PLAYLIST.length;
+    const current = PLAYLIST[currentTrackIndex];
+    const widget = document.getElementById('music-widget');
+    const audioEl = document.getElementById('audio-player');
+
+    isMusicPlaying = true;
+    if (widget) widget.classList.add('playing');
+
+    if (current.type === 'audio') {
+      stopMusicBoxMelody();
+      if (audioEl) {
+        audioEl.src = current.src;
+        audioEl.play().catch(e => console.warn('Audio play error:', e));
+      }
+    } else {
+      if (audioEl) audioEl.pause();
+      startMusicBoxMelody();
+    }
+
+    updatePlaylistUI();
+  }
+
+  function nextTrack() {
+    playTrack(currentTrackIndex + 1);
+  }
+
+  function prevTrack() {
+    playTrack(currentTrackIndex - 1);
+  }
+
   function toggleMusic() {
     initAudioContext();
     const widget = document.getElementById('music-widget');
     const audioEl = document.getElementById('audio-player');
+    const current = PLAYLIST[currentTrackIndex];
 
     if (isMusicPlaying) {
       // Pause
@@ -686,39 +767,21 @@
       isMusicPlaying = true;
       if (widget) widget.classList.add('playing');
 
-      if (activeAudioTrack === 'musicbox') {
-        if (audioEl) audioEl.pause();
-        startMusicBoxMelody();
-      } else {
+      if (current.type === 'audio') {
         stopMusicBoxMelody();
         if (audioEl) {
-          audioEl.src = 'assets/audio/our_memory.mp3';
+          if (!audioEl.src || audioEl.src.indexOf(current.src) === -1) {
+            audioEl.src = current.src;
+          }
           audioEl.play().catch(e => console.warn('Audio play error:', e));
         }
-      }
-    }
-  }
-
-  function switchMusicTrack() {
-    const trackName = document.getElementById('track-name');
-    const audioEl = document.getElementById('audio-player');
-
-    if (activeAudioTrack === 'musicbox') {
-      activeAudioTrack = 'custom';
-      stopMusicBoxMelody();
-      if (trackName) trackName.textContent = 'Our Memory Audio 🎵';
-      if (isMusicPlaying && audioEl) {
-        audioEl.src = 'assets/audio/our_memory.mp3';
-        audioEl.play().catch(e => console.warn('Audio play error:', e));
-      }
-    } else {
-      activeAudioTrack = 'musicbox';
-      if (audioEl) audioEl.pause();
-      if (trackName) trackName.textContent = 'Romantic Music Box 🎶';
-      if (isMusicPlaying) {
+      } else {
+        if (audioEl) audioEl.pause();
         startMusicBoxMelody();
       }
     }
+
+    updatePlaylistUI();
   }
 
   // --- LIVE AGE & LOVE COUNTER ---
@@ -820,9 +883,8 @@
     giftBtn.addEventListener('click', () => {
       fireConfetti(0.5, 0.5);
 
-      if (!isMusicPlaying) {
-        toggleMusic();
-      }
+      // Start playing our song immediately
+      playTrack(0);
 
       setTimeout(() => {
         curtain.classList.add('hidden');
@@ -1378,8 +1440,16 @@
     const audioEl = document.getElementById('audio-player');
     const widget = document.getElementById('music-widget');
 
+    const prevBtn = document.getElementById('prev-track-btn');
+    const nextBtn = document.getElementById('next-track-btn');
+    const pauseBtn = document.getElementById('pause-resume-btn');
+    const playlistBtns = document.querySelectorAll('.playlist-item-btn');
+
     if (musicToggle) musicToggle.addEventListener('click', toggleMusic);
-    if (switchTrackBtn) switchTrackBtn.addEventListener('click', switchMusicTrack);
+    if (pauseBtn) pauseBtn.addEventListener('click', toggleMusic);
+    if (prevBtn) prevBtn.addEventListener('click', prevTrack);
+    if (nextBtn) nextBtn.addEventListener('click', nextTrack);
+
     if (muteBtn) {
       muteBtn.addEventListener('click', () => {
         toggleMusic();
@@ -1387,16 +1457,19 @@
       });
     }
 
-    // Auto-detect bg_music.mp3 if user provided it
-    fetch('assets/audio/bg_music.mp3', { method: 'HEAD' })
-      .then(res => {
-        if (res.ok) {
-          activeAudioTrack = 'custom';
-          if (trackName) trackName.textContent = 'Special Birthday Song 🎵';
-          if (audioEl) audioEl.src = 'assets/audio/bg_music.mp3';
-        }
-      })
-      .catch(() => {});
+    // Playlist item clicks
+    playlistBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        playTrack(idx);
+      });
+    });
+
+    // Auto advance to next song when current track ends
+    if (audioEl) {
+      audioEl.addEventListener('ended', () => {
+        nextTrack();
+      });
+    }
 
     // Allow user to pick any custom audio file from device
     if (pickAudioBtn && localAudioInput) {
@@ -1405,9 +1478,8 @@
         const file = e.target.files && e.target.files[0];
         if (file) {
           const url = URL.createObjectURL(file);
-          activeAudioTrack = 'custom';
           stopMusicBoxMelody();
-          const cleanName = file.name.replace(/\.[^/.]+$/, '').slice(0, 22);
+          const cleanName = file.name.replace(/\.[^/.]+$/, '').slice(0, 24);
           if (trackName) trackName.textContent = `🎵 ${cleanName}`;
           if (audioEl) {
             audioEl.src = url;
@@ -1415,9 +1487,13 @@
           }
           isMusicPlaying = true;
           if (widget) widget.classList.add('playing');
+          if (pauseBtn) pauseBtn.textContent = '⏸️ Pause';
         }
       });
     }
+
+    // Initialize UI
+    updatePlaylistUI();
   }
 
   // --- INITIALIZE EVERYTHING ON DOM READY ---

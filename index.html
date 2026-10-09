@@ -64,12 +64,24 @@
       </div>
     </button>
     <div class="music-info-popup" id="music-info-popup">
-      <span class="music-track-name" id="track-name">Romantic Music Box 🎵</span>
+      <div class="music-header-row">
+        <span class="music-now-playing-label">NOW PLAYING</span>
+        <span class="music-track-name" id="track-name">💖 Meri Aankhon Mein Nazar Teri Hai</span>
+      </div>
       <div class="music-controls-row">
-        <button class="sub-btn" id="switch-track-btn" title="Switch song">🔀 Switch Track</button>
-        <button class="sub-btn" id="pick-audio-btn" title="Select audio from your device">📁 Custom Song</button>
+        <button class="sub-btn" id="prev-track-btn" title="Previous song">⏮️</button>
+        <button class="sub-btn" id="pause-resume-btn" title="Play/Pause">⏯️ Play</button>
+        <button class="sub-btn" id="next-track-btn" title="Next song">⏭️</button>
         <button class="sub-btn" id="mute-btn" title="Mute/Unmute">🔊</button>
       </div>
+      <div class="music-playlist-list" id="music-playlist-list">
+        <button class="playlist-item-btn active" data-track="0">💖 Meri Aankhon Mein (Shukran Allah)</button>
+        <button class="playlist-item-btn" data-track="1">✨ Tu Chahiye (Atif Aslam)</button>
+        <button class="playlist-item-btn" data-track="2">🎂 Birthday Acoustic Melody</button>
+        <button class="playlist-item-btn" data-track="3">🎬 Our Memory Audio</button>
+        <button class="playlist-item-btn" data-track="4">🎶 Romantic Music Box Chime</button>
+      </div>
+      <button class="sub-btn custom-file-pick-btn" id="pick-audio-btn" title="Select audio from your device">📁 Upload Custom Song</button>
       <input type="file" id="local-audio-input" accept="audio/*" style="display:none;">
     </div>
   </aside>
@@ -329,6 +341,20 @@
             Thank you for being my peace, my sweetest comfort, and my absolute favorite person.
           </p>
           <div class="quote-author">— Forever Yours, Rahul ❤️</div>
+        </div>
+
+        <!-- SPECIAL SONGS & LYRICS TRIBUTE -->
+        <div class="song-lyrics-tribute">
+          <div class="lyric-card">
+            <span class="lyric-badge">🎵 OUR FAVORITE SONG</span>
+            <p class="lyric-line">“Meri aankhon mein nazar teri hai,<br>Meri shaam-o-sehar teri hai...<br>Tu jo nahi to main kahaan.” 💖</p>
+            <span class="lyric-song">— Shukran Allah • Forever Dedication</span>
+          </div>
+          <div class="lyric-card">
+            <span class="lyric-badge">✨ ONLY YOU</span>
+            <p class="lyric-line">“Haal-e-dil ko sukoon chahiye, Poori ik aarzoo chahiye...<br>Jaise kaazi ko duaa chahiye, <strong>Suno mujhe tu chahiye.</strong>” 🌸</p>
+            <span class="lyric-song">— Tu Chahiye • My Whole Heart</span>
+          </div>
         </div>
       </div>
 

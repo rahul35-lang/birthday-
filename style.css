@@ -399,16 +399,69 @@ a {
   display: flex;
 }
 
+.music-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.music-now-playing-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--primary-pink);
+  letter-spacing: 1px;
+}
+
 .music-track-name {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .music-controls-row {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+.music-playlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.playlist-item-btn {
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 182, 193, 0.4);
+  color: var(--text-dark);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.playlist-item-btn:hover, .playlist-item-btn.active {
+  background: linear-gradient(135deg, #ff4d79, #ff758c);
+  color: #fff;
+  border-color: #ff4d79;
+}
+
+.custom-file-pick-btn {
+  margin-top: 4px;
+  width: 100%;
+  text-align: center;
 }
 
 .sub-btn {
@@ -424,6 +477,56 @@ a {
 
 .sub-btn:hover {
   background: var(--blush-pink);
+}
+
+/* SONG LYRICS TRIBUTE IN US SECTION */
+.song-lyrics-tribute {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-width: 540px;
+  margin: 18px auto 0 auto;
+}
+
+@media (min-width: 600px) {
+  .song-lyrics-tribute {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.lyric-card {
+  background: linear-gradient(145deg, #ffffff, #fff2f6);
+  border: 1px solid rgba(255, 182, 193, 0.6);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: left;
+  box-shadow: 0 4px 14px rgba(255, 77, 121, 0.08);
+  position: relative;
+}
+
+.lyric-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--primary-pink);
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.lyric-line {
+  font-family: var(--font-handwriting);
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.lyric-song {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: block;
+  text-align: right;
 }
 
 /* ==========================================================================

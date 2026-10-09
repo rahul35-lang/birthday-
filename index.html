@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Happy Birthday, My Love! 💖 • October 10</title>
+  
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+  <meta name="theme-color" content="#ff85a2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cinzel:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Sparkles & Heart Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- 1. CUTE UNWRAP / INTRO OVERLAY -->
+  <div id="intro-curtain" class="intro-curtain">
+    <div class="intro-content">
+      <div class="floating-petals">
+        <span>🌸</span><span>✨</span><span>💖</span><span>🌷</span><span>✨</span>
+      </div>
+      <div class="intro-badge">A Special Surprise Just For You</div>
+      <h1 class="intro-title">Happy Birthday, My Love! 💕</h1>
+      <p class="intro-subtitle">To the most precious girl in my entire universe...</p>
+      
+      <div class="gift-box-wrapper" id="gift-box-btn">
+        <div class="gift-glow"></div>
+        <div class="gift-box">
+          <div class="gift-lid">
+            <div class="gift-ribbon-bow"></div>
+          </div>
+          <div class="gift-body">
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+          </div>
+        </div>
+        <div class="tap-hint">
+          <span class="pulse-hand">👆</span>
+          <span>Tap to unwrap your birthday surprise!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING FLOATING MUSIC PLAYER -->
+  <aside class="floating-music-widget" id="music-widget">
+    <button class="music-toggle-btn" id="music-toggle" aria-label="Toggle background music">
+      <div class="vinyl-disk" id="vinyl-disk">
+        <div class="vinyl-grooves"></div>
+        <div class="vinyl-center">💖</div>
+      </div>
+      <div class="sound-wave" id="sound-wave">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </button>
+    <div class="music-info-popup" id="music-info-popup">
+      <span class="music-track-name" id="track-name">Romantic Music Box 🎵</span>
+      <div class="music-controls-row">
+        <button class="sub-btn" id="switch-track-btn" title="Switch song">🔀 Switch Track</button>
+        <button class="sub-btn" id="mute-btn" title="Mute/Unmute">🔊</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- FLOATING QUICK ACTIONS FOR PHONE -->
+  <div class="floating-quick-actions">
+    <button class="quick-btn kiss-burst-btn" id="quick-kiss-btn" title="Send kisses!">
+      <span class="icon">💋</span>
+      <span class="kiss-counter-badge" id="kiss-badge">0</span>
+    </button>
+    <button class="quick-btn scroll-top-btn" id="scroll-top-btn" title="Scroll to top">
+      <span class="icon">↑</span>
+    </button>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-container">
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-decorations">
+        <span class="decor-star star-1">✨</span>
+        <span class="decor-star star-2">💫</span>
+        <span class="decor-heart heart-1">💖</span>
+        <span class="decor-heart heart-2">🌸</span>
+      </div>
+
+      <div class="date-capsule">
+        <span class="badge-icon">🎂</span>
+        <span class="badge-text">October 10 • २०६६ असोज २४ (BS)</span>
+      </div>
+
+      <div class="hero-titles">
+        <span class="hero-greeting">To My Whole Heart, My Entire World</span>
+        <h1 class="hero-name-heading">Happy 17th Birthday!</h1>
+        <p class="hero-tagline">
+          Born on <strong>October 10, 2009 AD</strong> (२०६६/०६/२४ BS) — the day the brightest angel arrived on earth.
+        </p>
+      </div>
+
+      <!-- LIVE LOVE & AGE COUNTER -->
+      <div class="counter-card-glass">
+        <div class="counter-header">
+          <span class="pulsing-heart">💓</span>
+          <h3>You have been blessing this world for:</h3>
+        </div>
+        <div class="counter-grid">
+          <div class="counter-item">
+            <span class="counter-num" id="counter-days">6209</span>
+            <span class="counter-label">Days</span>
+          </div>
+          <div class="counter-sep">:</div>
+          <div class="counter-item">
+            <span class="counter-num" id="counter-hours">00</span>
+            <span class="counter-label">Hours</span>
+          </div>
+          <div class="counter-sep">:</div>
+          <div class="counter-item">
+            <span class="counter-num" id="counter-minutes">00</span>
+            <span class="counter-label">Minutes</span>
+          </div>
+          <div class="counter-sep">:</div>
+          <div class="counter-item">
+            <span class="counter-num highlight-sec" id="counter-seconds">00</span>
+            <span class="counter-label">Seconds</span>
+          </div>
+        </div>
+        <p class="counter-footnote">...and every single second with you is my greatest blessing. ✨</p>
+      </div>
+
+      <!-- QUICK NAVIGATION PILLS -->
+      <nav class="quick-nav-pills">
+        <a href="#cake-section" class="nav-pill">🎂 Make a Wish</a>
+        <a href="#us-section" class="nav-pill highlight-pill">💑 You & Me (Us)</a>
+        <a href="#her-section" class="nav-pill">🌷 Her Gallery</a>
+        <a href="#reasons-section" class="nav-pill">💌 17 Reasons</a>
+        <a href="#letter-section" class="nav-pill">📜 Love Letter</a>
+      </nav>
+    </section>
+
+    <!-- 3. INTERACTIVE BIRTHDAY CAKE & WISH CEREMONY -->
+    <section class="section-card cake-section" id="cake-section">
+      <div class="section-header">
+        <span class="section-kicker">Make A Wish 🕯️</span>
+        <h2 class="section-title">Blow Out Your Candles</h2>
+        <p class="section-desc">Close your eyes, make your deepest secret wish, and tap the candles to blow them out!</p>
+      </div>
+
+      <div class="cake-stage" id="cake-stage">
+        <div class="cake-container" id="cake-interactive-btn">
+          <!-- Candles on top -->
+          <div class="candles-row">
+            <div class="candle candle-1">
+              <div class="flame" id="flame-1"></div>
+              <div class="wick"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="candle candle-2">
+              <div class="flame" id="flame-2"></div>
+              <div class="wick"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="candle candle-3">
+              <div class="flame" id="flame-3"></div>
+              <div class="wick"></div>
+              <div class="candle-stick"></div>
+            </div>
+          </div>
+
+          <!-- Cake Layers -->
+          <div class="cake-tier tier-top">
+            <div class="frosting-drips"></div>
+            <div class="cake-decorations">🍓 🌸 🍓</div>
+          </div>
+          <div class="cake-tier tier-middle">
+            <div class="frosting-stripes"></div>
+            <div class="cake-text-emboss">Sweet 17</div>
+          </div>
+          <div class="cake-tier tier-base">
+            <div class="pearl-trim"></div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <button class="blow-btn" id="blow-candles-btn">
+          <span>💨 Tap to Blow Out The Candles!</span>
+        </button>
+
+        <div class="wish-reveal-banner" id="wish-banner">
+          <div class="sparkle-burst">🎉 ✨ 🎂 ✨ 🎉</div>
+          <h3>✨ WISH GRANTED! ✨</h3>
+          <p>
+            May your 17th year be overflowing with endless happiness, bright laughter, pure peace, and big dreams coming true.
+            I promise to always stand by you, love you, protect you, and cheer for you forever! ❤️
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. HIGHEST PRIORITY SECTION: US (YOU & ME) -->
+    <section class="section-card us-section" id="us-section">
+      <div class="us-section-glow"></div>
+      
+      <div class="section-header">
+        <div class="priority-crown">👑 TOP PRIORITY • OUR WORLD 👑</div>
+        <span class="section-kicker">You & Me, Hand In Hand 💕</span>
+        <h2 class="section-title">Our Story, Our Moments, Us</h2>
+        <p class="section-desc">
+          Of all the photos in the world, the ones with <strong>us together</strong> are my absolute most precious treasures.
+          Every second next to you feels like a dream I never want to wake up from.
+        </p>
+      </div>
+
+      <!-- FEATURED POLAROID GALLERY OF US -->
+      <div class="us-polaroid-wall">
+        
+        <!-- US Photo 1 -->
+        <article class="polaroid-card polaroid-tilt-left" data-type="us-photo" data-index="0">
+          <div class="washi-tape tape-top"></div>
+          <div class="polaroid-img-box">
+            <img 
+              src="assets/us/thumbs/eb66aff0-cf5e-4d43-a386-b836ccdfaa3d.jpg" 
+              data-full="assets/us/images/eb66aff0-cf5e-4d43-a386-b836ccdfaa3d.jpg" 
+              alt="You and Me moment" 
+              loading="lazy" 
+              class="polaroid-img"
+            >
+            <div class="polaroid-overlay">
+              <span>🔍 Tap to view</span>
+            </div>
+          </div>
+          <div class="polaroid-caption">
+            <span class="handwritten-text">"The warmest place in my universe is next to you. ❤️"</span>
+            <span class="polaroid-date">Forever & Always ✨</span>
+          </div>
+        </article>
+
+        <!-- US Photo 2 -->
+        <article class="polaroid-card polaroid-tilt-right" data-type="us-photo" data-index="1">
+          <div class="washi-tape tape-top-right"></div>
+          <div class="polaroid-img-box">
+            <img 
+              src="assets/us/thumbs/2e2bd384-9235-4b35-ab3d-1f5a443dbcb3.jpg" 
+              data-full="assets/us/images/2e2bd384-9235-4b35-ab3d-1f5a443dbcb3.jpg" 
+              alt="Our sweet memory" 
+              loading="lazy" 
+              class="polaroid-img"
+            >
+            <div class="polaroid-overlay">
+              <span>🔍 Tap to view</span>
+            </div>
+          </div>
+          <div class="polaroid-caption">
+            <span class="handwritten-text">"You make every ordinary second feel extraordinary. 🌸"</span>
+            <span class="polaroid-date">My Favorite Human 💕</span>
+          </div>
+        </article>
+
+        <!-- US Photo 3 (Special Capture) -->
+        <article class="polaroid-card polaroid-tilt-center" data-type="us-photo" data-index="2">
+          <div class="washi-tape tape-top-center"></div>
+          <div class="polaroid-img-box">
+            <img 
+              src="assets/us/thumbs/IMG_0124.PNG" 
+              data-full="assets/us/images/IMG_0124.PNG" 
+              alt="Treasured memory of us" 
+              loading="lazy" 
+              class="polaroid-img"
+            >
+            <div class="polaroid-overlay">
+              <span>🔍 Tap to view</span>
+            </div>
+          </div>
+          <div class="polaroid-caption">
+            <span class="handwritten-text">"Saved deep in my heart where time can never touch it. 💫"</span>
+            <span class="polaroid-date">Cherished Memories 🌷</span>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- FEATURED VIDEO OF US -->
+      <div class="us-video-feature-card">
+        <div class="video-card-header">
+          <span class="video-badge">🎬 FEATURED FILM • OUR MEMORY</span>
+          <h3>A Glimpse Into Our Happiness 💕</h3>
+          <p>The smiles, the vibes, and the happiness we share whenever we are together.</p>
+        </div>
+
+        <div class="video-frame-outer">
+          <div class="video-player-wrapper">
+            <video 
+              id="us-featured-video"
+              class="styled-video"
+              playsinline
+              preload="metadata"
+              poster="assets/us/thumbs/2090f1fc-fbcf-49bd-9333-efec9857a80c_poster.jpg"
+              src="assets/us/videos/2090f1fc-fbcf-49bd-9333-efec9857a80c.mp4"
+            ></video>
+            
+            <button class="custom-video-play-btn" id="play-us-video-btn" aria-label="Play our video">
+              <span class="play-icon">▶</span>
+              <span class="play-text">Play Our Video</span>
+            </button>
+          </div>
+          <div class="video-controls-bar">
+            <button class="vid-btn" id="us-video-replay-btn">🔄 Replay</button>
+            <button class="vid-btn" id="us-video-mute-btn">🔊 Sound On</button>
+            <button class="vid-btn" id="us-video-fullscreen-btn">⛶ Fullscreen</button>
+          </div>
+        </div>
+
+        <div class="romantic-quote-box">
+          <div class="quote-mark">“</div>
+          <p class="quote-text">
+            I don't just love you for who you are; I love who I become whenever I am with you.
+            Thank you for being my peace, my sweetest comfort, and my absolute favorite person.
+          </p>
+          <div class="quote-author">— Forever Yours, Rahul ❤️</div>
+        </div>
+      </div>
+
+      <!-- OUR LOVE PROMISES -->
+      <div class="promises-grid">
+        <div class="promise-card">
+          <span class="p-icon">🛡️</span>
+          <h4>I Promise to Protect</h4>
+          <p>Your smile, your soft heart, and your happiness will always be my number one priority.</p>
+        </div>
+        <div class="promise-card">
+          <span class="p-icon">🤝</span>
+          <h4>I Promise to Stand By You</h4>
+          <p>On the brightest sunny days and through any heavy storm—we face everything as a team.</p>
+        </div>
+        <div class="promise-card">
+          <span class="p-icon">💖</span>
+          <h4>I Promise to Love You More</h4>
+          <p>With every sunrise that comes, my love for you only grows deeper, stronger, and truer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. HER SECTION: THE BIRTHDAY QUEEN -->
+    <section class="section-card her-section" id="her-section">
+      <div class="section-header">
+        <span class="section-kicker">Her Elegance & Cuteness 🌷</span>
+        <h2 class="section-title">All About The Birthday Girl</h2>
+        <p class="section-desc">
+          Every photo of you captures a different piece of why you are so special.
+          Tap any picture or video to view in full screen, double-tap to send hearts!
+        </p>
+      </div>
+
+      <!-- FILTER TABS (Mobile Friendly Scroll) -->
+      <div class="gallery-tabs-wrapper">
+        <div class="gallery-tabs" id="gallery-tabs">
+          <button class="tab-btn active" data-filter="all">
+            <span>✨ All Moments</span>
+            <span class="tab-count" id="count-all">64</span>
+          </button>
+          <button class="tab-btn" data-filter="photos">
+            <span>📸 Cute Photos</span>
+            <span class="tab-count" id="count-photos">53</span>
+          </button>
+          <button class="tab-btn" data-filter="videos">
+            <span>🎬 Videos & Reels</span>
+            <span class="tab-count" id="count-videos">11</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- HER MEDIA GRID (Masonry Staggered) -->
+      <div class="her-gallery-grid" id="her-gallery-grid">
+        <!-- Rendered dynamically by script.js for ultra-smooth rendering & lazy-loading -->
+      </div>
+
+      <!-- LOAD MORE BUTTON IF NEEDED -->
+      <div class="gallery-footer-actions">
+        <button class="load-more-btn" id="load-more-btn" style="display: none;">
+          <span>✨ View More Beautiful Moments</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 6. 17 REASONS WHY I ADORE YOU -->
+    <section class="section-card reasons-section" id="reasons-section">
+      <div class="section-header">
+        <span class="section-kicker">For Your 17th Birthday 🎈</span>
+        <h2 class="section-title">17 Reasons Why I Adore You</h2>
+        <p class="section-desc">
+          One special reason for every year you've blessed this world. Tap each card to reveal what's inside!
+        </p>
+        <div class="reasons-progress-bar">
+          <div class="progress-fill" id="reasons-progress" style="width: 0%;"></div>
+        </div>
+        <div class="progress-text">
+          <span id="revealed-count">0</span> of 17 Reasons Unlocked 💕
+        </div>
+      </div>
+
+      <div class="reasons-grid" id="reasons-grid">
+        <!-- Rendered dynamically with 17 cute flip cards -->
+      </div>
+      
+      <div class="all-revealed-badge" id="all-revealed-badge">
+        <span class="badge-emojis">🎉 💖 👑 💖 🎉</span>
+        <h3>You Unlocked Everything!</h3>
+        <p>...and the truth is, there are a million more reasons why I fall for you more every single day.</p>
+      </div>
+    </section>
+
+    <!-- 7. THE LOVE LETTER (WAX-SEALED ENVELOPE) -->
+    <section class="section-card letter-section" id="letter-section">
+      <div class="section-header">
+        <span class="section-kicker">Straight From My Heart 💌</span>
+        <h2 class="section-title">A Birthday Letter For You</h2>
+        <p class="section-desc">Tap the wax seal to unfold this letter written just for your eyes.</p>
+      </div>
+
+      <div class="envelope-container" id="envelope-wrapper">
+        <div class="envelope" id="envelope-element">
+          <div class="envelope-flap" id="envelope-flap"></div>
+          <div class="envelope-pocket"></div>
+          <div class="wax-seal" id="wax-seal-btn">
+            <span class="seal-icon">💌</span>
+            <span class="seal-text">OPEN</span>
+          </div>
+        </div>
+
+        <!-- The Unfolded Letter -->
+        <article class="letter-paper" id="letter-paper">
+          <div class="letter-inner">
+            <div class="letter-header-decor">
+              <span class="letter-date">October 10, 2026 • 2066-06-24 BS</span>
+              <span class="letter-tag">To My Sweetest Angel 💖</span>
+            </div>
+
+            <h3 class="letter-salutation">My Dearest Girl,</h3>
+
+            <div class="letter-body">
+              <p>
+                Happy 17th Birthday, my love! 🎂✨
+              </p>
+              <p>
+                Today is October 10—the day seventeen years ago (२०६६ साल असोज २४ गते) when this universe was blessed with the prettiest, kindest, and most wonderful soul I have ever known.
+              </p>
+              <p>
+                Looking through all our pictures and seeing your sweet smile in every photo reminds me just how lucky I am to have you in my life. You bring so much light, peace, and laughter into my days. When you smile, all my worries fade away. When you talk to me, you make every ordinary conversation feel so special.
+              </p>
+              <p>
+                On this milestone of your 17th birthday, I want you to know how deeply proud I am of the amazing person you are. You have a heart of pure gold, and you deserve nothing but the sweetest love, endless happiness, and all your biggest dreams fulfilled.
+              </p>
+              <p>
+                No matter where life takes us, I promise to always hold your hand, celebrate your triumphs, lift you up on tough days, and remind you every single day how truly loved and cherished you are.
+              </p>
+              <p>
+                Thank you for being my girlfriend, my best friend, and my whole heart. Happy Birthday, my beautiful girl! Here's to us, today and forever. 🥂💕
+              </p>
+            </div>
+
+            <div class="letter-signature">
+              <p class="sig-prefix">With all my love and heart,</p>
+              <p class="sig-name">Rahul ❤️</p>
+              <p class="sig-sub">Forever & Always Yours</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 8. INFINITE KISSES & LOVE CANNON -->
+    <section class="section-card kisses-section" id="kisses-section">
+      <div class="section-header">
+        <span class="section-kicker">Unlimited Affection 💋</span>
+        <h2 class="section-title">Send Birthday Kisses!</h2>
+        <p class="section-desc">Tap the button below as many times as you want to shower yourself with love!</p>
+      </div>
+
+      <div class="kiss-cannon-interactive">
+        <div class="kiss-counter-display">
+          <span class="counter-label-text">Total Kisses Sent:</span>
+          <span class="big-kiss-count" id="main-kiss-count">0</span>
+        </div>
+
+        <button class="huge-kiss-button" id="huge-kiss-btn">
+          <span class="btn-emoji">💋</span>
+          <span class="btn-text">TAP FOR A KISS!</span>
+          <span class="btn-subtext">Infinite love for the Birthday Girl 💕</span>
+        </button>
+
+        <div class="kiss-milestone-msg" id="kiss-milestone-msg">
+          Tap the button to start the kiss shower! 🌸
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-heart">💖</div>
+      <p class="footer-main-text">Made with infinite love for the sweetest girl in the world.</p>
+      <div class="footer-badges">
+        <span>🎂 Born: 2009.10.10 AD</span>
+        <span>•</span>
+        <span>🇳🇵 २०६६.०६.२४ BS</span>
+        <span>•</span>
+        <span>Sweet 17 ✨</span>
+      </div>
+      <p class="footer-copy">Always & Forever • Rahul & His Queen ❤️</p>
+    </footer>
+
+  </main>
+
+  <!-- 10. LUXURY FULL-SCREEN LIGHTBOX MODAL (Mobile Touch & Swipe Enabled) -->
+  <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    
+    <div class="lightbox-container">
+      <!-- Top Bar -->
+      <div class="lightbox-topbar">
+        <span class="lightbox-counter" id="lightbox-counter">1 / 64</span>
+        <div class="lightbox-actions">
+          <button class="lightbox-btn" id="lightbox-heart-btn" title="Send a heart">
+            <span class="icon">❤️</span>
+            <span class="badge" id="lightbox-heart-count">0</span>
+          </button>
+          <button class="lightbox-btn" id="lightbox-close-btn" title="Close">✕</button>
+        </div>
+      </div>
+
+      <!-- Media Stage -->
+      <div class="lightbox-stage" id="lightbox-stage">
+        <button class="lightbox-nav-btn prev-btn" id="lightbox-prev-btn" aria-label="Previous">❮</button>
+        
+        <div class="lightbox-media-wrapper" id="lightbox-media-wrapper">
+          <img id="lightbox-img" src="" alt="Full view" class="lightbox-img" style="display: none;">
+          <video id="lightbox-video" src="" controls playsinline class="lightbox-video" style="display: none;"></video>
+        </div>
+
+        <button class="lightbox-nav-btn next-btn" id="lightbox-next-btn" aria-label="Next">❯</button>
+      </div>
+
+      <!-- Bottom Caption Bar -->
+      <div class="lightbox-bottombar">
+        <p class="lightbox-caption" id="lightbox-caption">The sweetest moment 💕</p>
+        <span class="lightbox-hint">👈 Swipe left or right to browse 👉</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Element for custom track fallback -->
+  <audio id="audio-player" preload="auto" loop></audio>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
